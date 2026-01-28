@@ -32,21 +32,22 @@ export const TodoItem: React.FC<Props> = ({
   const [editedTitle, setEditedTitle] = useState(title);
 
   const handleSubmit = () => {
-    setEditedTitle(prev => prev.trim());
+    const trimmedTitle = editedTitle.trim();
 
-    if (editedTitle === title) {
+    if (trimmedTitle === title) {
       setIsEditing(false);
 
       return;
     }
 
-    if (!editedTitle.length) {
+    if (!trimmedTitle.length) {
       handleDeleteTodo(id);
 
       return;
     }
 
-    handleTitleChange(id, editedTitle, completed).then(res =>
+    setEditedTitle(trimmedTitle);
+    handleTitleChange(id, trimmedTitle, completed).then(res =>
       setIsEditing(res),
     );
   };
