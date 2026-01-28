@@ -49,15 +49,17 @@ export const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
     if (isError) {
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setIsError(null);
       }, 3000);
-
-      return () => clearTimeout(timer);
     }
 
-    return undefined;
+    return () => {
+      clearTimeout(timer);
+    };
   }, [isError]);
 
   useEffect(() => {
